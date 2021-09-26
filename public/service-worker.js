@@ -2,7 +2,9 @@ const FILES_TO_CACHE = [
     '/',
     '/index.html',
     '/styles.css',
-    '/dist/app.bundle.js',
+    '/db.js',
+    '/index.js',
+    // '/dist/app.bundle.js',
     'https://cdn.jsdelivr.net/npm/chart.js@2.8.0',
   ];
   
