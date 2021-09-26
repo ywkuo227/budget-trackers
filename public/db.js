@@ -1,7 +1,9 @@
 let db;
 
+// Create a new DBRequest for BudgetDB database in IndexedDB.
 const request = window.indexedDB.open("BudgetDB", 1);
 
+// Create BudgetStore and set keyPath and AutoIncrement to true.
 request.onupgradeneeded = function (event) {
   const db = event.target.result;
   db.createObjectStore("BudgetStore", { keyPath: "budgetID",autoIncrement: true });
@@ -16,18 +18,21 @@ request.onsuccess = function (event) {
   }
 };
 
+// Display error.
 request.onerror = function (event) {
     this.transaction.onerror = function (event) {
       console.error(error);
     }
   };
 
+// Create a transaction on the pending DB with RW access. Access the pending object store and add record to the store with add method.
 function saveRecord(record) {
   const transaction = db.transaction(["BudgetStore"], "readwrite");
   const budgetStore = transaction.objectStore("BudgetStore");
   budgetStore.add( record );
 }
 
+// Open a transaction on the pending DB. Access the pending object store and get all records from store and set to variable.
 function checkDatabase() {
   const transaction = db.transaction(["BudgetStore"], "readwrite");
   const budgetStore = transaction.objectStore("BudgetStore");
@@ -53,4 +58,5 @@ function checkDatabase() {
   };
 }
 
+// Listne for app coming back online.
 window.addEventListener('online', checkDatabase);
